@@ -1,6 +1,7 @@
-package it.lavoro.hera_db.auth.app_user;
+package it.lavoro.hera_db.auth.locations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.lavoro.hera_db.auth.app_user.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "app_users")
+@Table(name = "locations")
 @NoArgsConstructor
 @Data
-public class AppUser implements UserDetails {
+public class Location implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +34,15 @@ public class AppUser implements UserDetails {
 
     private String nome;
     private String cognome;
+    private String pIva;
     private String telefono;
     @Column(unique = true)
     private String email;
-    private Date dataMatrimonio;
+    private String indirizzo;
+    private int miPiace;
+    private String immagine;
+    @Column(unique = true)
+    private String codiceUnivoco;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -55,23 +61,39 @@ public class AppUser implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    public AppUser(String username, String password, String nome, String cognome ,String telefono, String email, Date dataMatrimonio ,  Collection<? extends GrantedAuthority> authorities) {
-        this ( username, password, nome, cognome, telefono, email, dataMatrimonio , true, true, true, true, authorities);
+    public Location (String username, String password, String nome, String cognome, String telefono, String email, String indirizzo, String immagine, String codiceUnivoco, Collection<? extends GrantedAuthority> authorities) {
+     this ( username, password, nome, cognome, telefono, email, indirizzo, immagine, codiceUnivoco, true, true, true, true, authorities);
     }
 
-    public AppUser(String username, String password, String nome, String cognome, String telefono, String email, Date dataMatrimonio, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-
+    public Location (
+            String username,
+            String password,
+            String nome,
+            String cognome,
+            String telefono,
+            String email,
+            String indirizzo,
+            String immagine,
+            String codiceUnivoco,
+            boolean enabled,
+            boolean accountNonExpired,
+            boolean credentialsNonExpired,
+            boolean accountNonLocked,
+            Collection<? extends GrantedAuthority> authorities
+    ) {
         this.username = username;
         this.password = password;
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
         this.email = email;
-        this.dataMatrimonio = dataMatrimonio;
+        this.indirizzo = indirizzo;
+        this.immagine = immagine;
+        this.codiceUnivoco = codiceUnivoco;
         this.enabled = enabled;
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
         this.accountNonLocked = accountNonLocked;
     }
 
-    }
+}
