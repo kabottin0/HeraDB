@@ -36,6 +36,10 @@ public class AuthRunner implements ApplicationRunner {
         }
 
         // Creazione dell'utente location
+        Optional<AppUser> locationUser = appUserService.findByUsername("location");
+        if (locationUser.isEmpty()) {
+            appUserService.registerDefault("location", "locationpwd", Set.of(Role.ROLE_LOCATION));
+        }
 
 
     }

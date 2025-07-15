@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,7 +28,7 @@ public class Prenotazione {
     private Date dataMatrimonio;
     private int numeroInvitati;
     private double budget;
-    @ManyToOne
-    private Piatto piatto;
+    @OneToMany
+    private List<Piatto> menu= new ArrayList<>();
     private Stato statoPrenotazione;
 }

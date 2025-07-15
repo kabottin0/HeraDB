@@ -3,6 +3,7 @@ package it.lavoro.hera_db.auth.authorization;
 import it.lavoro.hera_db.auth.app_user.AppUser;
 import it.lavoro.hera_db.auth.app_user.AppUserService;
 import it.lavoro.hera_db.auth.app_user.Role;
+import it.lavoro.hera_db.auth.locations.LocationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -61,11 +62,8 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(
                 token,
                 user.getUsername(),
-                user.getNome(),
-                user.getCognome(),
                 user.getTelefono(),
                 user.getEmail(),
-                user.getDataMatrimonio(),
                 roles
         ));
     }

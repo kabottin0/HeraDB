@@ -9,13 +9,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class AuthResponse {
-    private String token;
+    private String token; // autenticazione
     private String username;
-    private String nome;
-    private String cognome;
     private String telefono;
     private String email;
-    private Date dataMatrimonio;
     private Set<String> roles;
 }
 

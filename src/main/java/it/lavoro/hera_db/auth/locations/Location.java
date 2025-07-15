@@ -2,6 +2,7 @@ package it.lavoro.hera_db.auth.locations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.lavoro.hera_db.auth.app_user.Role;
+import it.lavoro.hera_db.voti.Voto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -33,13 +32,13 @@ public class Location implements UserDetails {
     private String password;
 
     private String nome;
-    private String cognome;
     private String pIva;
     private String telefono;
     @Column(unique = true)
     private String email;
     private String indirizzo;
-    private int miPiace;
+    @OneToMany
+    private List<Voto> voti = new ArrayList<>();
     private String immagine;
     @Column(unique = true)
     private String codiceUnivoco;
@@ -61,15 +60,14 @@ public class Location implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    public Location (String username, String password, String nome, String cognome, String telefono, String email, String indirizzo, String immagine, String codiceUnivoco, Collection<? extends GrantedAuthority> authorities) {
-     this ( username, password, nome, cognome, telefono, email, indirizzo, immagine, codiceUnivoco, true, true, true, true, authorities);
+    public Location (String username, String password, String nome, String telefono, String email, String indirizzo, String immagine, String codiceUnivoco, Collection<? extends GrantedAuthority> authorities) {
+     this ( username, password, nome, telefono, email, indirizzo, immagine, codiceUnivoco, true, true, true, true, authorities);
     }
 
     public Location (
             String username,
             String password,
             String nome,
-            String cognome,
             String telefono,
             String email,
             String indirizzo,
@@ -84,7 +82,6 @@ public class Location implements UserDetails {
         this.username = username;
         this.password = password;
         this.nome = nome;
-        this.cognome = cognome;
         this.telefono = telefono;
         this.email = email;
         this.indirizzo = indirizzo;
