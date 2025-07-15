@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class PiattoRequest {
     @NotBlank ( message = "Il nome del piatto non può essere vuoto" )
     private String nomePiatto;

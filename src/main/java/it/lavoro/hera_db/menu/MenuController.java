@@ -1,6 +1,7 @@
 package it.lavoro.hera_db.menu;
 
 import it.lavoro.hera_db.auth.locations.Location;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,12 +23,12 @@ public class MenuController {
 
     @PostMapping("/piatto")
     @ResponseStatus(HttpStatus.CREATED)
-    public Piatto create(@RequestBody PiattoRequest piattoRequest, @RequestParam Categoria categoria, @AuthenticationPrincipal Location location) {
+    public Piatto create(@RequestBody @Valid PiattoRequest piattoRequest, @RequestParam Categoria categoria, @AuthenticationPrincipal Location location) {
         return menuService.create(piattoRequest, categoria, location);
     }
 
     @PutMapping("/piatto/{id}")
-    public Piatto update(@PathVariable Long id, @RequestBody PiattoRequest piattoRequest, @RequestParam Categoria categoria,@AuthenticationPrincipal Location location) {
+    public Piatto update(@PathVariable Long id, @RequestBody @Valid PiattoRequest piattoRequest, @RequestParam Categoria categoria,@AuthenticationPrincipal Location location) {
         return menuService.update(id, piattoRequest, categoria, location);
     }
 
