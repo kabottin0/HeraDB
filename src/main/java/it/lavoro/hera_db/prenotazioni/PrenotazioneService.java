@@ -20,6 +20,10 @@ public class PrenotazioneService {
         return prenotazioneRepository.findAllByLocation(location);
     }
 
+    public Prenotazione getPrenotazioneByUtente(AppUser utente) {
+        return prenotazioneRepository.findByAppUser(utente);
+    }
+
     public Prenotazione create(@Valid PrenotazioneRequest prenotazioneRequest, AppUser utente) {
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setDataMatrimonio( prenotazioneRequest.getDataMatrimonio());
@@ -29,15 +33,29 @@ public class PrenotazioneService {
         return prenotazioneRepository.save(prenotazione);
     }
 
-    /*public Prenotazione update(Long id, PrenotazioneRequest prenotazioneRequest) {
+    public Prenotazione update(Long id, PrenotazioneRequest prenotazioneRequest, Location location) {
         Prenotazione prenotazione = prenotazioneRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Prenotazione non trovata"));
-        prenotazione.setDataMatrimonio( prenotazioneRequest.getDataMatrimonio());
-        prenotazione.setNumeroInvitati(prenotazioneRequest.getNumeroInvitati());
-        prenotazione.setBudget(prenotazioneRequest.getBudget());
-        return prenotazioneRepository.save(prenotazione);
+        if (prenotazione != null) {
+            prenotazione.setDataMatrimonio(prenotazioneRequest.getDataMatrimonio());
+            prenotazione.setNumeroInvitati(prenotazioneRequest.getNumeroInvitati());
+            prenotazione.setBudget(prenotazioneRequest.getBudget());
+            prenotazione.setLocation(location);
+            return prenotazioneRepository.save(prenotazione);
+        } else {
+            throw new EntityNotFoundException("Prenotazione non trovata");
+        }
     }
 
-    public void delete(Long id) {
-        prenotazioneRepository.deleteById(id);
-    }*/
+    public void delete(Long id,Location location) {
+        Prenotazione prenotazione = prenotazioneRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Prenotazione non trovata"));
+        if (prenotazione != null) {
+            if (prenotazione.getLocation().equals(location)) {
+                prenotazioneRepository.deleteById(id);
+            } else {
+                throw new EntityNotFoundException("Prenotazione non trovata");
+            }
+        } else {
+            throw new EntityNotFoundException("Prenotazione non trovata");
+        }
+    }
 }
