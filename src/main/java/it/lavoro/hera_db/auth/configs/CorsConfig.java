@@ -15,7 +15,8 @@ public class CorsConfig {
                 registry.addMapping("/") // o solo /api/ se vuoi
                         .allowedOrigins("http://localhost:5173")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
+                        .allowedHeaders("Authorization", "Content-Type", "X-Requested-With")
+                        .exposedHeaders("Authorization") 
                         .allowCredentials(true); // Consente l'invio di credenziali, mettere false se allowedOrigins è "*"
             }
         };
