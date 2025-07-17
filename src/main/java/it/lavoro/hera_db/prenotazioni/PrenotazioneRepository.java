@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long> {
     List <Prenotazione> findAllByLocation(Location location);
-    Prenotazione findByAppUser(AppUser utente);
+    Prenotazione findByUtente(AppUser utente);
 }

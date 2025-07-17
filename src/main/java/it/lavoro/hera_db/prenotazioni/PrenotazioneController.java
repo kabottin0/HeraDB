@@ -19,12 +19,12 @@ import java.util.List;
 public class PrenotazioneController {
     private final PrenotazioneService prenotazioneService;
 
-    @GetMapping
+    @GetMapping("/location")
     public List<Prenotazione> getPrenotazioniByLocation(@AuthenticationPrincipal Location location){
         return prenotazioneService.getPrenotazioniByLocation(location);
     }
 
-    @GetMapping
+    @GetMapping("/utente")
     public Prenotazione getPrenotazioneByUtente(@AuthenticationPrincipal AppUser utente){
         return prenotazioneService.getPrenotazioneByUtente(utente);
     }

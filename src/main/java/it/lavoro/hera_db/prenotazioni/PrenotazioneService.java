@@ -21,7 +21,7 @@ public class PrenotazioneService {
     }
 
     public Prenotazione getPrenotazioneByUtente(AppUser utente) {
-        return prenotazioneRepository.findByAppUser(utente);
+        return prenotazioneRepository.findByUtente(utente);
     }
 
     public Prenotazione create(@Valid PrenotazioneRequest prenotazioneRequest, AppUser utente) {
