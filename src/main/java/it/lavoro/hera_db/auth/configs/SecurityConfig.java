@@ -44,7 +44,7 @@ public class SecurityConfig {
             "http://localhost:5173", 
             "https://heradb-production.up.railway.app"
         ));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
